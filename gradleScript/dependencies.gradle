@@ -1,0 +1,46 @@
+ext {
+
+    compose_version = '1.0.0'
+
+    libs = [:]
+    androidx = [:]
+    compose = [:]
+    test = [:]
+
+    // Redux
+    def flowReduxVersion = "0.6.0"
+    libs.flowRedux = "com.freeletics.flowredux:flowredux:$flowReduxVersion"
+    libs.flowReduxDsl = "com.freeletics.flowredux:dsl:$flowReduxVersion"
+
+    // Koin DI
+    def koinVersion = "3.1.2"
+    libs.koinCore = "io.insert-koin:koin-core:$koinVersion"
+    libs.koinAndroid = "io.insert-koin:koin-android:$koinVersion"
+    libs.koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
+
+    // Coil
+    libs.coil = 'io.coil-kt:coil-compose:1.3.0'
+    
+    // Android Core
+    androidx.core = "androidx.core:core-ktx:1.6.0"
+    androidx.appcompat = 'androidx.appcompat:appcompat:1.3.1'
+    androidx.material = 'com.google.android.material:material:1.4.0'
+    androidx.activityCompose = 'androidx.activity:activity-compose:1.3.0'
+    androidx.lifecycleRuntime = 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    androidx.lifecycleViewModel = 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    androidx.lifecycleViewModelCompose = 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
+    
+    // Compose
+    compose.ui = "androidx.compose.ui:ui:$compose_version"
+    compose.material = "androidx.compose.material:material:$compose_version"
+    compose.uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    compose.uiTooling = "androidx.compose.ui:ui-tooling:$compose_version"
+    compose.runtime = "androidx.compose.runtime:runtime:$compose_version"
+    compose.runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
+    
+    // Tests
+    test.junit = 'junit:junit:4.+'
+    test.uiJunit = 'androidx.test.ext:junit:1.1.3'
+    test.uiEspresso = 'androidx.test.espresso:espresso-core:3.4.0'
+    test.uiJunitCompose = "androidx.compose.ui:ui-test-junit4:$compose_version"
+}
