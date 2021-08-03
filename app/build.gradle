@@ -58,6 +58,10 @@ dependencies {
     implementation compose.ui
     implementation compose.runtime
 
+    implementation navigation.compose
+
+    implementation google.insets
+
     testImplementation test.junit
     androidTestImplementation test.uiJunit
     androidTestImplementation test.uiEspresso
@@ -65,28 +69,4 @@ dependencies {
 
     debugImplementation compose.uiTooling
     debugImplementation compose.uiToolingPreview
-
-
-//    // Android Core
-//    android.core = "androidx.core:core-ktx:1.6.0"
-//    android.appcompat = 'androidx.appcompat:appcompat:1.3.1'
-//    android.material 'com.google.android.material:material:1.4.0'
-//    android.activityCompose 'androidx.activity:activity-compose:1.3.0'
-//    android.lifecycleRuntime 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-//    android.lifecycleViewModel 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-//    android.lifecycleViewModelCompose 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
-//
-//    // Compose
-//    compose.ui = "androidx.compose.ui:ui:$compose_version"
-//    compose.material = "androidx.compose.material:material:$compose_version"
-//    compose.uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$compose_version"
-//    compose.uiTooling = "androidx.compose.ui:ui-tooling:$compose_version"
-//    compose.runtime = "androidx.compose.runtime:runtime:$compose_version"
-//    compose.runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
-//
-//    // Tests
-//    test.junit = 'junit:junit:4.+'
-//    test.uiJunit = 'androidx.test.ext:junit:1.1.3'
-//    test.uiEspresso = 'androidx.test.espresso:espresso-core:3.4.0'
-//    test.uiJunitCompose = "androidx.compose.ui:ui-test-junit4:$compose_version"
 }

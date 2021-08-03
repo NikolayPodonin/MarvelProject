@@ -6,11 +6,20 @@ import kotlinx.coroutines.delay
 class CharactersInteractor {
 
     suspend fun getCharacters(): List<MarvelCharacter> {
+        return tempMethodLoader(0)
+    }
+
+
+    suspend fun getNextCharacters(loadedCount: Int): List<MarvelCharacter> {
+        return tempMethodLoader(loadedCount)
+    }
+
+    private suspend fun tempMethodLoader(startPoint: Int): MutableList<MarvelCharacter> {
         delay(2000)
         val charactersList = mutableListOf<MarvelCharacter>()
-        for (i in 0..100) {
+        for (i in startPoint..startPoint + 100) {
             charactersList.add(
-                MarvelCharacter("name $i", "the description of $i", "")
+                MarvelCharacter(i, "name $i", "the description of $i", "")
             )
         }
         return charactersList

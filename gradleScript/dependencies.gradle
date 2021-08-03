@@ -6,6 +6,8 @@ ext {
     androidx = [:]
     compose = [:]
     test = [:]
+    navigation = [:]
+    google = [:]
 
     // Redux
     def flowReduxVersion = "0.6.0"
@@ -37,6 +39,12 @@ ext {
     compose.uiTooling = "androidx.compose.ui:ui-tooling:$compose_version"
     compose.runtime = "androidx.compose.runtime:runtime:$compose_version"
     compose.runtimeLivedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
+
+    // Navigation
+    navigation.compose = "androidx.navigation:navigation-compose:2.4.0-alpha05"
+
+    // Google
+    google.insets = "com.google.accompanist:accompanist-insets:0.15.0"
     
     // Tests
     test.junit = 'junit:junit:4.+'
