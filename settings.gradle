@@ -9,3 +9,5 @@ rootProject.name = "MarvelProject"
 include ':app'
 include ':base-ui'
 include ':marvel-characters'
+include ':marvel-details'
+include ':marvel-api'

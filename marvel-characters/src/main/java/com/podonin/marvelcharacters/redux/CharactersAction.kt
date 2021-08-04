@@ -8,8 +8,4 @@ object Reload: CharactersAction()
 
 object LoadNextPage: CharactersAction()
 
-data class SelectCharacter(
-    val characterId: Int
-): CharactersAction()
-
 

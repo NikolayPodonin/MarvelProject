@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.podonin.base_ui.components.ErrorFullScreen
+import com.podonin.base_ui.components.LoaderFullScreen
 import com.podonin.marvelcharacters.R
 import com.podonin.marvelcharacters.redux.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -31,7 +32,7 @@ import org.koin.androidx.compose.getViewModel
 @ExperimentalCoroutinesApi
 @Composable
 fun CharactersScreen(
-    onDetailsNavigate: (characterId: Int) -> Unit
+    onDetailsNavigate: (characterId: String) -> Unit
 ) {
     val viewModel: CharactersViewModel = getViewModel()
     val reduxState by viewModel.state.observeAsState()
@@ -49,44 +50,17 @@ fun CharactersScreen(
             is WithCharacters -> {
                 CharactersLazyList(
                     viewModel,
-                    state
+                    state,
+                    onDetailsNavigate
                 )
             }
             EmptyError -> {
-                CharactersError(viewModel = viewModel)
+                ErrorFullScreen { viewModel.dispatch(Reload) }
             }
             EmptyLoading, null -> {
-                CharactersLoader()
-            }
-            is CharacterSelected -> {
-                onDetailsNavigate.invoke(state.characterId)
+                LoaderFullScreen()
             }
         }
-    }
-}
-
-@ExperimentalCoroutinesApi
-@Composable
-fun CharactersError(viewModel: CharactersViewModel) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Button(
-            onClick = { viewModel.dispatch(Reload) },
-            modifier = Modifier.align(Alignment.Center)
-        ) {
-            val reloadStr = stringResource(id = R.string.reload_characters)
-            Icon(
-                painterResource(id = R.drawable.ic_refresh),
-                reloadStr
-            )
-            Text(text = reloadStr)
-        }
-    }
-}
-
-@Composable
-fun CharactersLoader() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
     }
 }
 
@@ -95,7 +69,8 @@ fun CharactersLoader() {
 @Composable
 private fun CharactersLazyList(
     viewModel: CharactersViewModel,
-    state: WithCharacters
+    state: WithCharacters,
+    onDetailsNavigate: (characterId: String) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -105,7 +80,9 @@ private fun CharactersLazyList(
                     name = item.name,
                     description = item.description,
                     avatarUrl = item.avatarUrl
-                ) { viewModel.dispatch(SelectCharacter(it))}
+                ) { id ->
+                    onDetailsNavigate.invoke(id)
+                }
                 if (state.characters.lastIndex == index) {
                     viewModel.dispatch(LoadNextPage)
                 }
@@ -148,11 +125,11 @@ private fun NewCharactersLoader(
 
 @Composable
 fun CharacterItem(
-    id: Int,
+    id: String,
     name: String,
     description: String,
     avatarUrl: String,
-    onClick: (id: Int) -> Unit
+    onClick: (id: String) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -160,7 +137,7 @@ fun CharacterItem(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onClick.invoke(id) }
     ) {
-        SnackImage(
+        CharacterImage(
             imageUrl = avatarUrl,
             contentDescription = "$name avatar",
             modifier = Modifier.size(48.dp)
@@ -177,7 +154,7 @@ fun CharacterItem(
 }
 
 @Composable
-fun SnackImage(
+fun CharacterImage(
     imageUrl: String,
     contentDescription: String?,
     modifier: Modifier = Modifier,

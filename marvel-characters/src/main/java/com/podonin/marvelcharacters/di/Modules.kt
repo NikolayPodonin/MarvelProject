@@ -22,7 +22,7 @@ private val viewModelModule: Module = module {
 }
 
 private val domainModule: Module = module {
-    factory { CharactersInteractor() }
+    factory { CharactersInteractor(get()) }
 }
 
 @ExperimentalCoroutinesApi

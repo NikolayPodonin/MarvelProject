@@ -27,17 +27,11 @@ class CharactersStateMachine(
                         NewPageLoading(state.characters)
                     )
                 }
-                on<SelectCharacter> { action, _ -> selectCharacter(action = action) }
             }
             inState<NewPageLoading> {
                 onEnter { state -> loadNextPage(state) }
-                on<SelectCharacter> { action, _ -> selectCharacter(action = action) }
             }
         }
-    }
-
-    private fun selectCharacter(action: SelectCharacter): ChangeState<CharactersState> {
-        return OverrideState(CharacterSelected(action.characterId))
     }
 
     private suspend fun loadCharacters(): ChangeState<CharactersState> {

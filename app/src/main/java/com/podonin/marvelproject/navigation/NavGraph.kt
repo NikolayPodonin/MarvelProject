@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.podonin.marvel_details.ui.DetailsScreen
 import com.podonin.marvelcharacters.ui.CharactersScreen
 import com.podonin.marvelproject.navigation.MainDestinations.CharacterDetails
 import com.podonin.marvelproject.navigation.MainDestinations.CharactersList
@@ -21,8 +22,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * Destinations used in the ([MarvelNavGraph]).
  */
 sealed class MainDestinations(val destination: String) {
-    object CharactersList: MainDestinations("CharactersList")
-    object CharacterDetails: MainDestinations("CharacterDetails") {
+    object CharactersList : MainDestinations("CharactersList")
+    object CharacterDetails : MainDestinations("CharacterDetails") {
         const val characterId = "characterId"
     }
 }
@@ -52,11 +53,16 @@ fun MarvelNavGraph(
         }
         composable(
             "${CharacterDetails.destination}/{${CharacterDetails.characterId}}",
-            arguments = listOf(navArgument(CharacterDetails.characterId) { type = NavType.IntType })
+            arguments = listOf(navArgument(CharacterDetails.characterId) {
+                type = NavType.StringType
+            })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
-            val snackId = arguments.getInt(CharacterDetails.characterId)
-            CharactersScreen(onDetailsNavigate = {}) // TODO: create details screen
+            val characterId = arguments.getString(CharacterDetails.characterId)
+            DetailsScreen(
+                characterId = characterId.orEmpty(),
+                onBackPressed = { navController.navigateUp() }
+            )
         }
     }
 }

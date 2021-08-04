@@ -1,7 +1,7 @@
 package com.podonin.marvelcharacters.domain.model
 
-data class MarvelCharacter(
-    val id: Int,
+data class SimpleCharacter(
+    val id: String,
     val name: String,
     val description: String,
     val avatarUrl: String
