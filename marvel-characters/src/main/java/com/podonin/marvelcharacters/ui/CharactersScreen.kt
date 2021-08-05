@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -20,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import com.podonin.base_ui.components.ErrorFullScreen
 import com.podonin.base_ui.components.LoaderFullScreen
@@ -137,8 +139,16 @@ fun CharacterItem(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onClick.invoke(id) }
     ) {
+        val imagePainter = rememberImagePainter(
+            data = avatarUrl,
+            builder = {
+                crossfade(true)
+                placeholder(drawableResId = R.drawable.ic_no_image)
+                error(drawableResId = R.drawable.ic_no_image)
+            }
+        )
         CharacterImage(
-            imageUrl = avatarUrl,
+            imagePainter = imagePainter,
             contentDescription = "$name avatar",
             modifier = Modifier.size(48.dp)
         )
@@ -146,34 +156,30 @@ fun CharacterItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 8.dp)
+                .align(CenterVertically)
         ) {
             Text(text = name, fontSize = 16.sp, color = Color.Black)
-            Text(text = description, fontSize = 14.sp, color = Color.Gray)
+            if (description.isNotBlank()) {
+                Text(text = description, fontSize = 14.sp, color = Color.Gray)
+            }
         }
     }
 }
 
 @Composable
 fun CharacterImage(
-    imageUrl: String,
+    imagePainter: ImagePainter,
     contentDescription: String?,
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp
 ) {
     Surface(
-        color = Color.LightGray,
         elevation = elevation,
         shape = CircleShape,
         modifier = modifier
     ) {
         Image(
-            painter = rememberImagePainter(
-                data = imageUrl,
-                builder = {
-                    crossfade(true)
-                    placeholder(drawableResId = R.drawable.avatar_placeholder)
-                }
-            ),
+            painter = imagePainter,
             contentDescription = contentDescription,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,

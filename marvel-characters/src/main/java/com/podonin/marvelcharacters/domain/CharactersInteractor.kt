@@ -1,30 +1,16 @@
 package com.podonin.marvelcharacters.domain
 
-import android.util.Log
-import com.podonin.marvel_api.data.service.MarvelCharactersService
+import com.podonin.marvel_remote_api.domain.MarvelRepository
 import com.podonin.marvelcharacters.domain.model.SimpleCharacter
-import kotlinx.coroutines.delay
+import com.podonin.marvelcharacters.domain.model.toSimple
 
-class CharactersInteractor(private val service: MarvelCharactersService) {
+class CharactersInteractor(private val repository: MarvelRepository) {
 
     suspend fun getCharacters(): List<SimpleCharacter> {
-        val chars = service.characters("8f167851ff88f7c9d511c9dad2fe0916")
-        Log.d("AAAA", chars.toString())
-        return tempMethodLoader(0)
+        return repository.getCharacters(0).toSimple()
     }
 
     suspend fun getNextCharacters(loadedCount: Int): List<SimpleCharacter> {
-        return tempMethodLoader(loadedCount)
-    }
-
-    private suspend fun tempMethodLoader(startPoint: Int): MutableList<SimpleCharacter> {
-        delay(2000)
-        val charactersList = mutableListOf<SimpleCharacter>()
-        for (i in startPoint..startPoint + 100) {
-            charactersList.add(
-                SimpleCharacter("i", "name $i", "the description of $i", "")
-            )
-        }
-        return charactersList
+        return repository.getCharacters(loadedCount).toSimple()
     }
 }

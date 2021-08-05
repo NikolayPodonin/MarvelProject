@@ -1,5 +1,5 @@
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
@@ -10,4 +10,5 @@ include ':app'
 include ':base-ui'
 include ':marvel-characters'
 include ':marvel-details'
-include ':marvel-api'
+include ':marvel-remote-impl'
+include ':marvel-remote-api'

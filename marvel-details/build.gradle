@@ -18,8 +18,11 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -44,6 +47,7 @@ android {
 dependencies {
 
     implementation project(":base-ui")
+    implementation project(":marvel-remote-api")
 
     implementation libs.flowRedux
     implementation libs.flowReduxDsl

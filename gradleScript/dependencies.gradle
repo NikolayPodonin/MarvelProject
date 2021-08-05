@@ -14,7 +14,7 @@ ext {
     libs.koinCompose = "io.insert-koin:koin-androidx-compose:$koinVersion"
 
     // Coil
-    libs.coil = 'io.coil-kt:coil-compose:1.3.0'
+    libs.coil = 'io.coil-kt:coil-compose:1.3.2'
 
     // OkHttp
     libs.okhttpBom = "com.squareup.okhttp3:okhttp-bom:4.9.0"

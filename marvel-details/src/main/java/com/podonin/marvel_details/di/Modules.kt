@@ -21,7 +21,7 @@ private val viewModelModule: Module = module {
 }
 
 private val domainModule: Module = module {
-    factory { DetailsInteractor() }
+    factory { DetailsInteractor(get()) }
 }
 
 @ExperimentalCoroutinesApi

@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'realm-android'
+}
+
+// todo: need to keep secret keys secret
+//def secretPropertiesFile = rootProject.file("secrets.properties")
+//def secretProperties = new Properties()
+//secretProperties.load(new FileInputStream(secretPropertiesFile))
+
+android {
+    compileSdk 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "MARVEL_API_BASE_URL", "\"https://gateway.marvel.com:443/\"" // todo: move to secretProperties["app.marvel_base_url"]
+        buildConfigField "String", "MARVEL_API_PUBLIC_KEY", "\"8f167851ff88f7c9d511c9dad2fe0916\"" // todo: move to secretProperties["app.marvel_public_api_key"]
+        buildConfigField "String", "MARVEL_API_PRIVATE_KEY", "\"9611ec8cce8cd10e09b12580b3dce21292f2052c\"" // todo: move to secretProperties["app.marvel_private_api_key"]
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+realm {
+    syncEnabled = true
+}
+
+dependencies {
+    implementation project(":marvel-remote-api")
+
+    implementation platform(libs.okhttpBom)
+    implementation libs.okhttp
+    implementation libs.okhttpLogging
+
+    implementation libs.retrofitCore
+    implementation libs.retrofitGsonConverter
+
+    implementation libs.gson
+
+    implementation libs.koinCore
+    implementation libs.koinAndroid
+}

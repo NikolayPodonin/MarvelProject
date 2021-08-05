@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="details_comics">com.podonin.marvel_api.data.model.Comics</string>
-    <string name="details_stories">com.podonin.marvel_api.data.model.Stories</string>
-    <string name="details_events">com.podonin.marvel_api.data.model.Events</string>
-    <string name="details_series">com.podonin.marvel_api.data.model.Series</string>
+    <string name="details_comics">Comics</string>
+    <string name="details_stories">Stories</string>
+    <string name="details_events">Events</string>
+    <string name="details_series">Series</string>
 </resources>

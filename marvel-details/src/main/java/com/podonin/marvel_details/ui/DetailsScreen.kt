@@ -38,8 +38,7 @@ private val imageHeight = 384.dp
 @ExperimentalCoroutinesApi
 @Composable
 fun DetailsScreen(
-    characterId: String,
-    onBackPressed: () -> Unit
+    characterId: String
 ) {
     val viewModel: DetailsViewModel = getViewModel { parametersOf(characterId) }
     val reduxState by viewModel.state.observeAsState()
@@ -57,8 +56,6 @@ fun DetailsScreen(
     }
 }
 
-private var index = 0
-
 @ExperimentalCoroutinesApi
 @Composable
 private fun CharactersDetails(character: FullCharacter) {
@@ -67,13 +64,10 @@ private fun CharactersDetails(character: FullCharacter) {
         val state = rememberLazyListState()
 
         ParallaxImage(
-            "https://image.shutterstock.com/z/stock-photo-fresh-citrus-seamles-fine-pattern-ripe-fruit-tangerines-trendy-sunlight-summer-pattern-made-with-1944594160.jpg",
-            null,
-            state)
+            imageUrl = character.avatarUrl,
+            contentDescription = character.description,
+            state = state)
         DetailsLazyColumn(character, state)
-//        Title(character, scroll.value)
-//        Image(snack.imageUrl, scroll.value)
-//        BackButton(upPress)
     }
 }
 
@@ -94,8 +88,8 @@ private fun ParallaxImage(
             data = imageUrl,
             builder = {
                 crossfade(true)
-                placeholder(drawableResId = R.drawable.avatar_placeholder)
-                error(drawableResId = R.drawable.avatar_placeholder)
+                placeholder(drawableResId = R.drawable.ic_no_image)
+                error(drawableResId = R.drawable.ic_no_image)
             }
         ),
         contentDescription = contentDescription,
@@ -171,33 +165,3 @@ private fun DetailsLazyColumn(
 fun Header(text: String, modifier: Modifier = Modifier) {
     Text(text = text, fontSize = 18.sp, modifier = modifier)
 }
-//
-//@Composable
-//fun CharacterItem(
-//    id: Int,
-//    name: String,
-//    description: String,
-//    avatarUrl: String,
-//    onClick: (id: Int) -> Unit
-//) {
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(horizontal = 16.dp, vertical = 8.dp)
-//            .clickable { onClick.invoke(id) }
-//    ) {
-//        SnackImage(
-//            imageUrl = avatarUrl,
-//            contentDescription = "$name avatar",
-//            modifier = Modifier.size(48.dp)
-//        )
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(start = 8.dp)
-//        ) {
-//            Text(text = name, fontSize = 16.sp, color = Color.Black)
-//            Text(text = description, fontSize = 14.sp, color = Color.Gray)
-//        }
-//    }
-//}

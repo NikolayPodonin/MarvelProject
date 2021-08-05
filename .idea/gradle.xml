@@ -12,9 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base-ui" />
-            <option value="$PROJECT_DIR$/marvel-api" />
             <option value="$PROJECT_DIR$/marvel-characters" />
             <option value="$PROJECT_DIR$/marvel-details" />
+            <option value="$PROJECT_DIR$/marvel-remote-api" />
+            <option value="$PROJECT_DIR$/marvel-remote-impl" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

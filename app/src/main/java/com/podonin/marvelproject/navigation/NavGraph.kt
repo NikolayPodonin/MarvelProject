@@ -60,8 +60,7 @@ fun MarvelNavGraph(
             val arguments = requireNotNull(backStackEntry.arguments)
             val characterId = arguments.getString(CharacterDetails.characterId)
             DetailsScreen(
-                characterId = characterId.orEmpty(),
-                onBackPressed = { navController.navigateUp() }
+                characterId = characterId.orEmpty()
             )
         }
     }

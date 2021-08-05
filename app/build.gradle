@@ -21,8 +21,11 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+        }
+        release {
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -48,7 +51,7 @@ dependencies {
     implementation project(":base-ui")
     implementation project(":marvel-characters")
     implementation project(":marvel-details")
-    implementation project(":marvel-api")
+    implementation project(':marvel-remote-impl')
 
     implementation libs.koinCore
     implementation libs.koinAndroid
