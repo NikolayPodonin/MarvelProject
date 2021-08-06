@@ -69,9 +69,8 @@ private val repositoryModule: Module = module {
 
 private val realmModule: Module = module {
     single<Realm> {
-        val realmName: String = "Marvel App Project"
         val config = RealmConfiguration.Builder()
-            .name(realmName)
+            .name(BuildConfig.MARVEL_APP_REALM_NAME)
             .allowWritesOnUiThread(true)
             .allowQueriesOnUiThread(true)
             .build()

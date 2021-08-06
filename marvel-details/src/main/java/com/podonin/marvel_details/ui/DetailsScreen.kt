@@ -116,52 +116,71 @@ private fun DetailsLazyColumn(
         state = state
     ) {
         item {
-            Header(
-                text = stringResource(id = R.string.details_comics),
+            Text(
+                text = character.name,
+                fontSize = 20.sp,
                 modifier = Modifier.padding(top = imageHeight)
             )
         }
 
-        items(character.comics) { comics ->
-            Text(text = comics)
+        if (character.description.isNotBlank()) {
+            item {
+                Text(
+                    text = character.description,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
 
-        item {
-            Header(
-                text = stringResource(id = R.string.details_stories),
-                Modifier.padding(top = 8.dp)
-            )
+        if (character.comics.isNotEmpty()) {
+            item {
+                Header(text = stringResource(id = R.string.details_comics))
+            }
+        }
+
+        items(character.comics) { comics ->
+            ListItem(text = comics)
+        }
+
+        if (character.stories.isNotEmpty()) {
+            item {
+                Header(text = stringResource(id = R.string.details_stories))
+            }
         }
 
         items(character.stories) { stories ->
-            Text(text = stories)
+            ListItem(text = stories)
         }
 
-        item {
-            Header(
-                text = stringResource(id = R.string.details_events),
-                Modifier.padding(top = 8.dp)
-            )
+        if (character.events.isNotEmpty()) {
+            item {
+                Header(text = stringResource(id = R.string.details_events))
+            }
         }
 
         items(character.events) { event ->
-            Text(text = event)
+            ListItem(text = event)
         }
 
-        item {
-            Header(
-                text = stringResource(id = R.string.details_series),
-                Modifier.padding(top = 8.dp)
-            )
+        if (character.series.isNotEmpty()) {
+            item {
+                Header(text = stringResource(id = R.string.details_series))
+            }
         }
 
         items(character.series) { series ->
-            Text(text = series)
+            ListItem(text = series)
         }
     }
 }
 
 @Composable
-fun Header(text: String, modifier: Modifier = Modifier) {
-    Text(text = text, fontSize = 18.sp, modifier = modifier)
+fun Header(text: String) {
+    Text(text = text, fontSize = 18.sp, modifier = Modifier.padding(top = 8.dp))
+}
+
+@Composable
+fun ListItem(text: String) {
+    Text(text = text, fontSize = 14.sp, modifier = Modifier.padding(start = 8.dp))
 }

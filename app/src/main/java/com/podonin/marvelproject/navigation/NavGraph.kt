@@ -20,6 +20,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Destinations used in the ([MarvelNavGraph]).
+ * I don't like this navigation system, but for this project it's
+ * more easy then create my own system.
  */
 sealed class MainDestinations(val destination: String) {
     object CharactersList : MainDestinations("CharactersList")

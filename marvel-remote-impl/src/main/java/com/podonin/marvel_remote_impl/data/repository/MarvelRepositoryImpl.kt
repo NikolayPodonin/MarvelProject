@@ -12,6 +12,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.coroutineContext
 
+
+/**
+ * This class is deliberately simplified.
+ * Now we think that characters never change on server,
+ * so we never compare previously saved cache with server data
+ * and never delete it.
+ * */
 class MarvelRepositoryImpl(
     private val charactersService: MarvelCharactersService,
     private val realm: Realm
@@ -28,6 +35,11 @@ class MarvelRepositoryImpl(
         offset: Int,
         nameStartsWith: String?
     ): List<MarvelCharacter> {
+        val locals = realm.where<MarvelCharacterLocal>()
+            .findAll()
+            .toList()
+        if (offset < locals.size) return locals.mapToDomain()
+
         val characters = charactersService.characters(offset, nameStartsWith).mapToDomain()
         saveToDatabase(characters)
         return characters

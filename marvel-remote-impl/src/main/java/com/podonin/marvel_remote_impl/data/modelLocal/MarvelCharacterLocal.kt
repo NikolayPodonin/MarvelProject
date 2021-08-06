@@ -34,20 +34,24 @@ fun MarvelCharacter.mapToLocal(): MarvelCharacterLocal {
         it.description = description
         it.avatarUrl = avatarUrl
         it.comics = RealmList<String>().apply {
-            comics
+            addAll(comics)
         }
         it.stories = RealmList<String>().apply {
-            stories
+            addAll(stories)
         }
         it.events = RealmList<String>().apply {
-            events
+            addAll(events)
         }
         it.series = RealmList<String>().apply {
-            series
+            addAll(series)
         }
     }
 }
 
 fun List<MarvelCharacter>.mapToLocal(): List<MarvelCharacterLocal> {
     return map { it.mapToLocal() }
+}
+
+fun List<MarvelCharacterLocal>.mapToDomain(): List<MarvelCharacter> {
+    return map { it.mapToDomain() }
 }
