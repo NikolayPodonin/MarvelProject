@@ -7,7 +7,6 @@ import retrofit2.http.Query
 interface MarvelCharactersService {
     @GET("/v1/public/characters")
     suspend fun characters(
-        @Query("offset") offset: Int,
-        @Query("nameStartsWith") nameStartsWith: String? = null
+        @Query("offset") offset: Int
     ): MarvelCharactersResponse
 }

@@ -31,16 +31,13 @@ class MarvelRepositoryImpl(
             ?.mapToDomain() ?: throw IllegalStateException("No such character")
     }
 
-    override suspend fun getCharacters(
-        offset: Int,
-        nameStartsWith: String?
-    ): List<MarvelCharacter> {
+    override suspend fun getCharacters(offset: Int): List<MarvelCharacter> {
         val locals = realm.where<MarvelCharacterLocal>()
             .findAll()
             .toList()
         if (offset < locals.size) return locals.mapToDomain()
 
-        val characters = charactersService.characters(offset, nameStartsWith).mapToDomain()
+        val characters = charactersService.characters(offset).mapToDomain()
         saveToDatabase(characters)
         return characters
     }
